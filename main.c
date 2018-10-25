@@ -1,43 +1,55 @@
 /*
  * GccApplication1.c
  *
- * Created: 25.10.2018 20:09:05
- * Author : hyperpeak
+ * Created: 25.10.2018 20:49:18
+ * Author : nikit
  */ 
 
 #include <avr/io.h>
 #include <util/delay.h>
 
-uint8_t m [9]={0b11100000,0b11000000,0b10000000,0b00000000,0b0001110,0b0001100,0b0001000,0b00000000,0b00000000};
+uint8_t m [8]={0b11111110,0b11111100,0b11111000,0b11110000,0b11100000,0b11000000,0b10000000,0b00000000};
 
 int main(void)
 {
-	DDRC = 0b0001111;
-	DDRD = 0b11110000;
-    /* Replace with your application code */
-    while (1) 
-    {
-		PORTD=0xFF;
-		PORTC=0xFF;
-		int i=0;
-		for (i = 0; i<4; i++)
+	DDRB=0b11111111;
+	DDRD=0b11111111;
+	/* Replace with your application code */
+	while (1)
+	{
+		 int i=0;
+		if (PINC & (1<<PINC0))
 		{
-			_delay_ms(500);
-			PORTD=0xFF;
-			_delay_ms(500);
-			PORTD=(m[i]);	
+			PORTB=0b00000000;
 		}
-		for (; i<9 ;i++ )
+		else
 		{
-			_delay_ms(500);
-			PORTD=0xFF;
-			PORTC=0xFF;
-			_delay_ms(500);
-			PORTC=(m[i]);
-			PORTD=0x00;
-			
+			PORTB=0xFF;
+			for (i = 0; i<8; i++)
+			{
+				_delay_ms(500);
+				PORTB=0xFF;
+				_delay_ms(500);
+				PORTB=(m[i]);
+			}
 		}
 		
-    }
+		if (PINC & (1<<PINC1))
+		{
+			PORTD=0b00000000;
+		}
+		else
+		{
+			PORTD=0xFF;
+			for (i = 0; i<8; i++)
+			{
+				_delay_ms(500);
+				PORTD=0xFF;
+				_delay_ms(500);
+				PORTD=(m[i]);
+			}
+		}
+	}
 }
+
 
