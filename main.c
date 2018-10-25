@@ -2,7 +2,7 @@
  * GccApplication1.c
  *
  * Created: 25.10.2018 20:49:18
- * Author : nikit
+ * Author : hyperpeak
  */ 
 
 #include <avr/io.h>
